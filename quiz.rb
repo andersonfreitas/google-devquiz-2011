@@ -10,71 +10,71 @@ text_b = "hwsfqn tqjprp dssjc vwvzk fcpcq jqclftx mtftgm jhhtqpf bcf mfftfqkt rw
 @bar_letters = @alphabet - @foo_letters
 
 def text_preps(text)
-	text_preps = 0
-	text.scan(/\w+/).each do |w|
-		if w.length == 3 and not w.index('b')
-			# end in bar_letter ?		
-			if @bar_letters.include? w[2]
-				# puts w
-				text_preps += 1
-			end
-		end
-	end	
-	text_preps
+  text_preps = 0
+  text.scan(/\w+/).each do |w|
+    if w.length == 3 and not w.index('b')
+      # end in bar_letter ?    
+      if @bar_letters.include? w[2]
+        # puts w
+        text_preps += 1
+      end
+    end
+  end  
+  text_preps
 end
 
 def verbs(text)
-	verbs = 0
-	subjunctive = 0
-	text.scan(/\w+/).each do |w|
-		if w.length >= 8 and @bar_letters.include? w[w.length - 1]
-			verbs += 1
-			
-			if @bar_letters.include? w[0]
-				subjunctive += 1
-			end
-		end
-	end
-	[verbs, subjunctive]
+  verbs = 0
+  subjunctive = 0
+  text.scan(/\w+/).each do |w|
+    if w.length >= 8 and @bar_letters.include? w[w.length - 1]
+      verbs += 1
+      
+      if @bar_letters.include? w[0]
+        subjunctive += 1
+      end
+    end
+  end
+  [verbs, subjunctive]
 end
 
 def compare_chars(a, b)
-	s = "pmrwlhzskgcdqjxvftbn"
-	
-	if s.index(a) < s.index(b)
-		-1
-	elsif s.index(a) == s.index(b)
-		0
-	else
-		1
-	end
+  s = "pmrwlhzskgcdqjxvftbn"
+  
+  if s.index(a) < s.index(b)
+    -1
+  elsif s.index(a) == s.index(b)
+    0
+  else
+    1
+  end
 end
 
 def compare(a, b)
-	len1 = a.length 
-	len2 = b.length 
-	n = [len1, len2].min
+  len1 = a.length 
+  len2 = b.length 
+  n = [len1, len2].min
 
-	(0..n-1).each do |i|
-		c1 = a[i]
-		c2 = b[i]
-	
-		if c1 != c2
-			return compare_chars(c1, c2)
-		end
-	end
-	
-	if a == b
-		0
-	elsif len1 > len2
-		1
-	else
-		-1
-	end
+  (0..n-1).each do |i|
+    c1 = a[i]
+    c2 = b[i]
+  
+    if c1 != c2
+      return compare_chars(c1, c2)
+    end
+  end
+  
+  if a == b
+    0
+  elsif len1 > len2
+    1
+  else
+    -1
+  end
 end
 
 def vocabulary(text)
-	text.scan(/\w+/).uniq.sort { |a, b| compare(a, b) }.join " "
+  text.scan(/\w+/).uniq.sort { |a, b| compare(a, b) }.join " "
 end
 
 # ===========================================
@@ -83,27 +83,27 @@ end
 # kzv = 6128
 # 8,6,15 = 15*400 + 6*20 + 8 = 6000 + 120 + 8 = 6128
 def to_i(word)
-	s = "pmrwlhzskgcdqjxvftbn"
-	n = 0
-	word.length.times do |i|
-		char = word[i]
-		n += (20 ** i) * s.index(char)
-	end
-	n
+  s = "pmrwlhzskgcdqjxvftbn"
+  n = 0
+  word.length.times do |i|
+    char = word[i]
+    n += (20 ** i) * s.index(char)
+  end
+  n
 end
 
 def find_pretty_numbers(text)
-	n = 0
-	
-	text.scan(/\w+/).uniq.each do |g|
-		i = to_i(g)
-		
-		if i >= 578744 and i % 5 == 0
-			n += 1
-		end
-	end
-	
-	n
+  n = 0
+  
+  text.scan(/\w+/).uniq.each do |g|
+    i = to_i(g)
+    
+    if i >= 578744 and i % 5 == 0
+      n += 1
+    end
+  end
+  
+  n
 end
 
 puts 
