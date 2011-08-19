@@ -77,6 +77,35 @@ def vocabulary(text)
 	text.scan(/\w+/).uniq.sort { |a, b| compare(a, b) }.join " "
 end
 
+# ===========================================
+# = Converts from Googlon number to integer =
+# ===========================================
+# kzv = 6128
+# 8,6,15 = 15*400 + 6*20 + 8 = 6000 + 120 + 8 = 6128
+def to_i(word)
+	s = "pmrwlhzskgcdqjxvftbn"
+	n = 0
+	word.length.times do |i|
+		char = word[i]
+		n += (20 ** i) * s.index(char)
+	end
+	n
+end
+
+def find_pretty_numbers(text)
+	n = 0
+	
+	text.scan(/\w+/).uniq.each do |g|
+		i = to_i(g)
+		
+		if i >= 578744 and i % 5 == 0
+			n += 1
+		end
+	end
+	
+	n
+end
+
 puts 
 puts "### Question 1 ###"
 puts "There are #{text_preps(text_a)} prepositions in Text A. (70)"
@@ -94,4 +123,8 @@ puts "### Question 4 ###"
 puts "Vocabulary list for Text B"
 puts vocabulary(text_b)
 puts vocabulary(text_a) == "pptfkxq pptnpqdq pmmpqzmc pmwpvg pmfqnjm prlnz prhr prhfxt prxd pwqdr pwqfl pllkmw pljsn plfljv plbln phlxd phshcn pzql pskq psv pkmpxkw pcztxmw pcxdgc pdpq pdhldj pdc pqmwzd pqbv pjw pjh pjqt pxfjndqt pvrbd pflwz ptlpxz pnlrbfh mpsl mpdv mpqd mmm mmmck mmkn mmtw mrld mwsgpzm mhrwbgff mzsz msjr msvjsxf mkrzv mkcbrlw mdwhl mdl mqx mxbtpjwh mvkml mvdlzpws mvnrsrt mfppgkk mfjtcgnd mtqkqx rpwckt rphl rmrvcjr rmzgdc rmd rlsz rlsf rlcgfn rlxqzvp rltldc rzzqr rzsjq rzsvjbkc rgrqlzl rgkr rgnfgk rcfp rdrbwff rdtmzmwk rjr rxwz rxgjmnp rvcmvc rfcjzgk rfvkmtzw rtwqn wpq wmwvnqcv wrk wwhgncwc wwfdpwqk wwbxdnjp wlvhf whzspgf whk whcmhfbh whdrql wzgt wshtq wsdjccdl wcmksm wcjmfrb wdhrvn wdt wqkjtfb wjkghhf wxr wxjg wvdwzl wbqqpz wbjfmpf wntf lpmn lph lmgpbd llgvw lhsds lhkbcq lhqxtzpk lhnddx lkz lkxqr lglbdmg lgstxkts lgfpqnqp ldv ldtfhj lqkzqkm ljnrtwjn lxp lxk lxxzbs lxbmz lfrxt lfdl ltc ltbxtq lblwr hpclnvd hrzbgc hwdbp hlk hlcjs hhdhqx hhv hzqzgzg hsrjz hshrftx hsdzw hkdppwwn hcpjm hcswfw hdwq hdcnzb hqdwcsxv hjzqtxrx hjnhln hxps hxhvjb hvwsgmr hvf hvnbdv hfcgckt hbrcw hbnbtmqz hnmbwp hnkwr hnqrmrmq hnql hnbqnd zpjxf zpf zpnxnk zmk zrpjzgh zrgwkpph zrxfb zwltnlmz zwhrmfzl zwzgrj zwbwqvdz zlc zhxvhmr zhnf zzvjhwdp zkbtsxbx zgh zgq zgt zgnmtqvc zcxmw zdwlzcm zdzb zdgp zxwmhsl zxt zffrfxl ztdvkwx ztqnttfl zbwz spbhn smp smjkwkl swmjlnvz szrj ssm ssq skmjn sgrdf sglczmn sckjw scg sdznh sdc sddv sdtnmjl sqlmlf sqfpv sjlsj sjzx sjkgxr sxsqdbgs svrnrr svq svvfbzms svtbrq sfcbqwgs sfdv sfvqwpng stpwm stfcr sbqq sbvwvbdx kps kpgmh krjxl krt kwgwwn kwvr kwncpgh klm klhls kzv kzb kswpqpg ksglmjt kkg kggxfdbx kgvvfpl kclcv kczw kcksjj kjljlgb kjdf kjn kjnzc kxxpsc kvqvlmvs kfr ktvtfzx ktt ktnp kbkx kbjbp knpwd knrq knvdbzx knfkgk kntmxfp gppdfpq gpffdkxz grsf gll glgdd ghpdwkf ghf gzmzbbmj gzd gspg gkhmc gkjk gdwrtwq gdwcq gqhxbr gjbcvgfv gxddgkn gxbbsg gtzbnlm gbh gbj gns cpmkz cpgmzr cpjjqb cmw crs crnhncfv clmj clwhljpz clhkft czt csrvdglz csh ckwmg ckqhrjzh ckngnmnk cgdhksb cgjvl ccd ccqwf ccnpt cdrpqqqj cqk cjwvjzl cjjxg cjxbgfv cjnw cflh cttg cbhcx cbd cbdpbhj cnhhxrxk cntgz dmskj dmsnfhs drzzpc drzqnzk dlhbscv dlsnkvfj dhrgb dhz dhzx dhnrgcjh dzlq dswj dsj dsndxb dkwr dgszswm dgksnl dgdjqcdh dqr djl djtfvzxx djbsx dvclmsc dbsg dbdkds dnpsb dnzdddf qmm qmrj qrzk qwpsl qwr qwxkf qlwgsz qlzff qhwf qzdrjfcg qzt qztz qkgzgpwn qcjk qcvng qqmg qjbh qfhnhcqn qfzwfg qbq qbqsxbt qnhwd qnzks jmlzj jmfm jmnqb jrqd jwlx jwgnwrvc jwdmz jwnghd jlmqbhdv jlxkh jlnxqsj jhpwmn jhq jhjnw jhbsk jzmvsm jzss jzjzxc jzvcfcjz jznpsbtn jsmphs jsfdwxh jkhrcth jktqwmtn jkbtlfk jcwqqv jdhtdk jdncwvd jfl jtppflv jbx jbt xps xpxg xpnbtlsw xmf xrmf xwn xlgbzz xlgnn xldd xlvfxrg xlbqt xhgn xhnlwqp xzx xsx xklh xkgsz xkcwwtv xgprgwvb xgscfbkg xclgzp xqhdhmh xqsvkpm xqqbgz xqvztz xqnk xjlbb xjjzslt xxsjdrbh xxc xvcjttk xvn xfrfbmm xffdk xtfvpvz xbtrrbpp xnhq vpv vmzn vrmznnkq vrwt vrkfvqhr vrdxhmnm vrx vrvpk vwwwplgj vwhnzmtr vwf vlldfh vlgnmzf vlcsxssj vldwv vhwl vslgbxls vkzhgkzm vkqb vgw vgdwvpns vcxzzx vdfgknvk vxkt vvs vfdh vfdx vbmdp vbshrz vbvfmrk vnztb vncpm vnqv vnj fprjq fmqtc fwxpwhpx fld fldmrdtq fldzr flfwmdns fhzxcrw fhk fhgzph fhxkwfmg fzlwzwkf fzsqpqg fzcwgg fskdk fsdwjc fknxlkc fgbbvs fckjqxbr fdp fdhsglx fddf fqlfcclt fjvhgm fjbmp fxvfbl fxnqklp fvwmtks fvc fvdpghb ffjhtmc ffjvw fftw ffn ftknvx ftc fbmkssg fbhsgj fbcm fnprdv tplwpgjb tmmxtgcl tmrmsf tmsvxb twmttw twjjdlt tlqmqlm tzppcvx tsph tsg tsqzsqtc tgpthr tckglk tqzz tqfg txpnwh tvwfqspl tvqd tfhjcxs tfjgffb tbjd tbvzbgxj tbfvdqsg tngdcfpf bpwkzsst brstd blzlr blqglnf bzmfl bzcn bzdwdtpd bzt bkrvmjn bkl bkzckp bkqpwm bgkk bdlj bqclbr bqtvnd bxxwnb btzdkwm bbphzn bblkbbqv bbshpgg bbqgm nppl nrpt nrrn nrljmtn nrqh nrxs nlwbvl nllm nlcfpl nhmwfs nhw nhblkqv nzmwsfq nzk nsz nsg nsdrt nsvhh nkv ncddbzgs ncjsvw ncx nctgjt ndnwqc njgkvtn njjrd nxgvts nxcb nvprnzxm nvrdq nvh nvgtxjdl ntkslj ntxcrqlb nbrznddr"
-
+puts
+puts "### Question 5 ###"
+puts "kzv = #{to_i("kzv")} (#{to_i("kzv") == 6128})"
+puts "In Text A, there are #{find_pretty_numbers(text_a)} distinct(!) pretty numbers. (should be 85)"
+puts "In Text B, there are #{find_pretty_numbers(text_b)} distinct(!) pretty numbers."
